@@ -5,7 +5,8 @@
  */
 package tssclubfair2017problemb;
 
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 
 /**
  *
@@ -16,33 +17,37 @@ public class TSSClubFair2017ProblemB {
     /**
      * @param args the command line arguments
      */
-    static long[] distances;
+    static Double[] distances;
+
     public static void main(String[] args) {
         // TODO code application logic here
-        Scanner sc=new Scanner(System.in);
-        String line = sc.nextLine();
-        String[] pair=line.split(" ");
-        int n=Integer.parseInt(pair[0]);
-        int q=Integer.parseInt(pair[1]);
-
-        distances=new long[n];
-        for (int i=0;i<n;i++) {
-            line=sc.nextLine();
-            pair=line.split(" ");
-            long x=Long.parseLong(pair[0]);
-            long y=Long.parseLong(pair[1]);
-            distances[i]=x*x+y*y;
-        }
-        for (int i=0;i<q;i++) {
-            line=sc.nextLine();
-            long impactDistance=Long.parseLong(line);
-            impactDistance*=impactDistance;
-            int count=0;
-            for (int j=0;j<n;j++) {
-                if (distances[j]<=impactDistance)
-                    count++;
+        try {
+            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+            String[] nq = reader.readLine().split(" ");
+            int n = Integer.parseInt(nq[0]);
+            int q = Integer.parseInt(nq[1]);
+            
+            distances = new Double[n];
+            for (int i = 0; i < n; i++) {
+                String line = reader.readLine();
+                String[] coord = line.split(" ");
+                double x = Double.parseDouble(coord[0]);
+                double y = Double.parseDouble(coord[1]);
+                distances[i] = x * x + y * y;
             }
-            System.out.println(count);
+            for (int i = 0; i < q; i++) {
+                Double impactDistance = Double.parseDouble(reader.readLine());
+                impactDistance *= impactDistance;
+                int count = 0;
+                for (int j = 0; j < n; j++) {
+                    if (distances[j] <= impactDistance) {
+                        count++;
+                    }
+                }                
+                System.out.println(count);
+            }
+        } catch (Exception e) {
+            System.out.println("Error");
         }
         
     }
