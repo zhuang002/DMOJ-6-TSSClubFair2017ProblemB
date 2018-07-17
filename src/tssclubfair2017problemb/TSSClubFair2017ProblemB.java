@@ -7,6 +7,7 @@ package tssclubfair2017problemb;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 
 /**
  *
@@ -17,7 +18,7 @@ public class TSSClubFair2017ProblemB {
     /**
      * @param args the command line arguments
      */
-    static Double[] distances;
+    static long[] distances;
 
     public static void main(String[] args) {
         // TODO code application logic here
@@ -27,23 +28,26 @@ public class TSSClubFair2017ProblemB {
             int n = Integer.parseInt(nq[0]);
             int q = Integer.parseInt(nq[1]);
             
-            distances = new Double[n];
+            
+            distances = new long[n];
             for (int i = 0; i < n; i++) {
                 String line = reader.readLine();
                 String[] coord = line.split(" ");
-                double x = Double.parseDouble(coord[0]);
-                double y = Double.parseDouble(coord[1]);
+                Long x = Long.parseLong(coord[0]);
+                Long y = Long.parseLong(coord[1]);
                 distances[i] = x * x + y * y;
             }
+            Arrays.sort(distances);
             for (int i = 0; i < q; i++) {
-                Double impactDistance = Double.parseDouble(reader.readLine());
+                Long impactDistance = Long.parseLong(reader.readLine());
                 impactDistance *= impactDistance;
                 int count = 0;
-                for (int j = 0; j < n; j++) {
-                    if (distances[j] <= impactDistance) {
-                        count++;
-                    }
-                }                
+                count=Arrays.binarySearch(distances, impactDistance);
+                if (count>=0) {
+                    count++;
+                } else {
+                    count= -(count+1);
+                }
                 System.out.println(count);
             }
         } catch (Exception e) {
